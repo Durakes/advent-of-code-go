@@ -20,7 +20,10 @@ func part1(input string) {
 	result := 0
 	for _, line := range strings.Split(input, "\n") {
 		var a, b, c int
-		fmt.Sscanf(line, "%dx%dx%d", &a, &b, &c)
+		_, err := fmt.Sscanf(line, "%dx%dx%d", &a, &b, &c)
+		if err != nil {
+			panic(err)
+		}
 		firstSide := a * b * 2
 		secondtSide := a * c * 2
 		thirdtSide := c * b * 2
@@ -35,17 +38,12 @@ func part2(input string) {
 	result := 0
 	for _, line := range strings.Split(input, "\n") {
 		var a, b, c int
-		var feet int
-		fmt.Sscanf(line, "%dx%dx%d", &a, &b, &c)
-		bow := a * b * c
-		if a >= b && a >= c {
-			feet = 2*b + 2*c
-		} else if b >= a && b >= c {
-			feet = 2*a + 2*c
-		} else {
-			feet = 2*a + 2*b
+		_, err := fmt.Sscanf(line, "%dx%dx%d", &a, &b, &c)
+		if err != nil {
+			panic(err)
 		}
-
+		bow := a * b * c
+		feet := MinInt((2 * (a + b)), (2 * (a + c)), (2 * (c + b)))
 		result += bow + feet
 	}
 
